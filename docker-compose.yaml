@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: proyect-microservice
+    ports:
+      - '3000:3000'
+    environment:
+      DB_HOST: postgres  # Change to postgres for PostgreSQL
+      DB_PORT: 5432  # PostgreSQL default port
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE: ${DB_DATABASE}
+      PORT: ${PORT}
+      API_GEOLOCALIZATION_KEY: ${API_GEOLOCALIZATION_KEY}
+    depends_on:
+      - postgres
+    entrypoint: ["npm", "run", "start:prod"]
+
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    ports:
+      - '5432:5432'  # Map container port 5432 to host port 5432
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME}  # Use POSTGRES_USER for username
+      POSTGRES_DB: ${DB_DATABASE}  # Use POSTGRES_DB for database name
+    volumes:
+      - postgres-data:/var/lib/postgresql/data  # Use postgresql data directory
+
+volumes:
+  postgres-data:  # Define a named volume for persistent storage
