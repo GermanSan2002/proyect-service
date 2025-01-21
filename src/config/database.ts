@@ -1,4 +1,4 @@
-import { DataSourceOptions } from 'typeorm';
+import { DataSource, DataSourceOptions } from 'typeorm';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -17,4 +17,6 @@ const config: DataSourceOptions = {
   subscribers: ['src/domain/subscribers/**/*.ts']
 };
 
-export default config;
+const dataSource = new DataSource(config);
+
+export { dataSource };

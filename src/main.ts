@@ -1,23 +1,26 @@
 import 'reflect-metadata';
-import { DataSource } from 'typeorm';
 import express from 'express';
-import config from './config/database';
 import * as dotenv from 'dotenv';
+import { dataSource } from './config/database';
+import { roleRoutes } from './routes/RoleRoutes';
 
-dotenv.config(); // Cargar las variables de entorno
+// Cargar las variables de entorno
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 // Configuración de Express
-app.use(express.json()); 
+app.use(express.json());
+
+// Rutas de roles
+app.use('/api/roles', roleRoutes);
 
 // Inicialización de la base de datos con la configuración de TypeORM
-const AppDataSource = new DataSource(config);
-
-AppDataSource.initialize()
+dataSource.initialize()
   .then(() => {
     console.log('Base de datos conectada correctamente');
+    
     // Iniciar servidor Express
     app.listen(port, () => {
       console.log(`Servidor en ejecución en http://localhost:${port}`);
@@ -25,4 +28,12 @@ AppDataSource.initialize()
   })
   .catch((error) => {
     console.error('Error al conectar con la base de datos', error);
+    // Finalizar el proceso si la conexión falla
+    process.exit(1);
   });
+
+// Manejo de errores global
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send({ message: 'Algo salió mal en el servidor' });
+});
