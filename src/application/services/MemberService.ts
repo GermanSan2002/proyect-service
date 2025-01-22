@@ -1,9 +1,9 @@
 import { MemberRepositoryImpl } from '../../infrastructure/repositories/MemberRepositoryImpl';
 import { RoleRepositoryImpl } from '../../infrastructure/repositories/RoleRepositoryImpl';
 import { ProjectRepositoryImpl } from '../../infrastructure/repositories/ProjectRepositoryImpl';
-import { Member } from 'src/domain/entities/Member';
-import { AddMemberDTO } from 'src/dto/AddMemberDTO';
-import { UpdateMemberRoleDTO } from 'src/dto/UpdateMemberRoleDTO';
+import { Member } from '../../domain/entities/Member';
+import { AddMemberDTO } from '../../dto/AddMemberDTO';
+import { UpdateMemberRoleDTO } from '../../dto/UpdateMemberRoleDTO';
 
 export class MemberService {
   constructor(
@@ -35,14 +35,15 @@ export class MemberService {
   }
 
   // Método para actualizar el rol de un miembro
-  async updateMemberRole(updateMemberRoleDTO: UpdateMemberRoleDTO): Promise<Member> {
-    const { userId, roleId } = updateMemberRoleDTO;
+  async updateMemberRole(id: string,updateMemberRoleDTO: UpdateMemberRoleDTO): Promise<Member> {
+    const { roleId } = updateMemberRoleDTO;
 
-    const member = await this.validateMemberExists(userId);
+    const member = await this.validateMemberExists(id);
     const role = await this.validateRoleExists(roleId);
 
     member.role = role;
-    return await this.memberRepository.update(userId, member);
+
+    return await this.memberRepository.update(id, member);
   }
 
   // Métodos privados para validaciones reutilizables
@@ -62,8 +63,8 @@ export class MemberService {
     return role;
   }
 
-  private async validateMemberExists(userId: string) {
-    const member = await this.memberRepository.findById(userId);
+  private async validateMemberExists(Id: string) {
+    const member = await this.memberRepository.findById(Id);
     if (!member) {
       throw new Error('Miembro no encontrado');
     }

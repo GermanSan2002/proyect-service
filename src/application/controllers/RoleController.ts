@@ -8,7 +8,6 @@ export class RoleController {
     this.roleService = roleService;
   }
 
-  // Método para crear un rol
   async createRole(req: Request, res: Response): Promise<void> {
     try {
       const roleData = req.body; // Suponiendo que el cuerpo contiene los datos del rol
@@ -20,7 +19,6 @@ export class RoleController {
     }
   }
 
-  // Método para obtener todos los roles
   async getAllRoles(req: Request, res: Response): Promise<void> {
     try {
       const roles = await this.roleService.getAllRoles();
@@ -31,7 +29,6 @@ export class RoleController {
     }
   }
 
-  // Método para obtener un rol por ID
   async getRoleById(req: Request, res: Response): Promise<void> {
     const { roleId } = req.params; // El ID del rol viene en los parámetros de la ruta
     try {
@@ -43,7 +40,6 @@ export class RoleController {
     }
   }
 
-  // Método para actualizar un rol
   async updateRole(req: Request, res: Response): Promise<void> {
     const { roleId } = req.params;
     const roleData = req.body; // Los datos a actualizar vienen en el cuerpo de la solicitud
@@ -56,7 +52,25 @@ export class RoleController {
     }
   }
 
-  // Método para eliminar un rol
+  /**
+   * @swagger
+   * /api/roles/{roleId}:
+   *   delete:
+   *     summary: Elimina un rol
+   *     description: Borra un rol existente utilizando su ID.
+   *     parameters:
+   *       - in: path
+   *         name: roleId
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: ID del rol a eliminar.
+   *     responses:
+   *       204:
+   *         description: Rol eliminado exitosamente.
+   *       500:
+   *         description: Error al eliminar el rol.
+   */
   async deleteRole(req: Request, res: Response): Promise<void> {
     const { roleId } = req.params;
     try {

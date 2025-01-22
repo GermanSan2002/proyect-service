@@ -8,7 +8,7 @@ services:
     ports:
       - '3000:3000'
     environment:
-      DB_HOST: postgres  # Change to postgres for PostgreSQL
+      DB_HOST: proyect-database  # Change to postgres for PostgreSQL
       DB_PORT: 5432  # PostgreSQL default port
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
@@ -16,13 +16,13 @@ services:
       PORT: ${PORT}
       API_GEOLOCALIZATION_KEY: ${API_GEOLOCALIZATION_KEY}
     depends_on:
-      - postgres
-    entrypoint: ["npm", "run", "start:prod"]
+      - proyect-database
+    entrypoint: ["npm", "run", "start"]
 
 
-  postgres:
+  proyect-database:
     image: postgres:latest
-    container_name: postgres
+    container_name: proyect-database
     ports:
       - '5432:5432'  # Map container port 5432 to host port 5432
     environment:

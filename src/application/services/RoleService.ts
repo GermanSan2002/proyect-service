@@ -1,7 +1,7 @@
 import { RoleRepositoryImpl } from '../../infrastructure/repositories/RoleRepositoryImpl';
 import { CreateRoleDTO } from '../../dto/CreateRoleDTO';
 import { UpdateRoleDTO } from '../../dto/UpdateRoleDTO';
-import { Role } from 'src/domain/entities/Role';
+import { Role } from '../../domain/entities/Role';
 
 export class RoleService {
   constructor(private roleRepository: RoleRepositoryImpl) {}

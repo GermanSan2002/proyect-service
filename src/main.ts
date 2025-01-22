@@ -3,6 +3,9 @@ import express from 'express';
 import * as dotenv from 'dotenv';
 import { dataSource } from './config/database';
 import { roleRoutes } from './routes/RoleRoutes';
+import { setupSwagger } from './config/swagger';
+import { memberRoutes } from './routes/MemberRoutes';
+
 
 // Cargar las variables de entorno
 dotenv.config();
@@ -13,8 +16,13 @@ const port = process.env.PORT || 3000;
 // Configuración de Express
 app.use(express.json());
 
+// Configurar Swagger
+setupSwagger(app);
+
 // Rutas de roles
 app.use('/api/roles', roleRoutes);
+// Rutas de miebros
+app.use('/api/members', memberRoutes);
 
 // Inicialización de la base de datos con la configuración de TypeORM
 dataSource.initialize()
