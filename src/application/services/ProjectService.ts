@@ -4,7 +4,7 @@ import { CreateProjectDTO } from '../../dto/CreateProjectDTO';
 import { UpdateProjectDTO } from '../../dto/UpdateProjectDTO';
 import { Project } from '../../domain/entities/Project';
 import { OpenCageGeoLocationService } from '../../infrastructure/services/OpenCageGeoLocationService';
-import { Role } from 'src/domain/entities/Role';
+import { Role } from '../../domain/entities/Role';
 
 export class ProjectService {
   constructor(

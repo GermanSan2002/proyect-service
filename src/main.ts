@@ -5,7 +5,8 @@ import { dataSource } from './config/database';
 import { roleRoutes } from './routes/RoleRoutes';
 import { setupSwagger } from './config/swagger';
 import { memberRoutes } from './routes/MemberRoutes';
-
+import stateRoutes from './routes/StateRoutes';
+import proyectRoutes from './routes/ProjectRoutes';
 
 // Cargar las variables de entorno
 dotenv.config();
@@ -23,7 +24,12 @@ setupSwagger(app);
 app.use('/api/roles', roleRoutes);
 // Rutas de miebros
 app.use('/api/members', memberRoutes);
+// Rutas de estados
+app.use('/api/states', stateRoutes);
+// Rutas de proyectos
+app.use('/api/projects', proyectRoutes);
 
+proyectRoutes
 // Inicialización de la base de datos con la configuración de TypeORM
 dataSource.initialize()
   .then(() => {

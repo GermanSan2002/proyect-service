@@ -12,7 +12,7 @@ export class MemberController {
     try {
       const { projectId, userId, roleId } = req.body;
       const newMember = await this.memberService.addMember({ projectId, userId, roleId });
-    res.status(201).json(newMember);
+      res.status(201).json(newMember);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Error al agregar el miembro' });
@@ -33,7 +33,7 @@ export class MemberController {
   async updateMemberRole(req: Request, res: Response): Promise<void> {
     try {
       const { Id } = req.params;
-      const { userId, roleId } = req.body;
+      const { roleId } = req.body;
       
       const updatedMember = await this.memberService.updateMemberRole(Id, { roleId });
       

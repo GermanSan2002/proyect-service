@@ -2,8 +2,8 @@ import { StateRepositoryImpl } from '../../infrastructure/repositories/StateRepo
 import { ProjectRepositoryImpl } from '../../infrastructure/repositories/ProjectRepositoryImpl';
 import { CreateStateDTO } from '../../dto/CreateStateDTO';
 import { UpdateStateDTO } from '../../dto/UpdateStateDTO';
-import { State } from 'src/domain/entities/State';
-import { GeoLocation } from 'src/domain/entities/GeoLocalization';
+import { State } from '../../domain/entities/State';
+import { GeoLocation } from '../../domain/entities/GeoLocalization';
 
 export class StateService {
   constructor(
